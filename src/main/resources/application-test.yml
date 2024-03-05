@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:17252/PUPPY_PLACE_USER_TEST
+    username: root
+    password: test
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      password: puppy-place-redis
+      port: 16695
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  servlet:
+    context-path: /user
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    kr.puppuplace.account: DEBUG
+
+puppy-place:
+  jwt:
+    secret: 7136a4fdd60ca85e042569253523960915bf5f3136eba25fa5d190604da4cf47
+    access-token-validity-in-seconds: 86400000 # 1000ms * 60초 * 60분 * 24시간 = 1일
