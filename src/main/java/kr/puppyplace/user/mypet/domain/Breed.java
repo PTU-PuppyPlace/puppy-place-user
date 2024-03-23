@@ -17,11 +17,12 @@ import org.hibernate.annotations.Comment;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Breed  {
+public class Breed {
+
     @jakarta.persistence.Id
     @GeneratedValue(strategy = IDENTITY)
     @Comment("breed_id")
-    private Long Id;
+    private Long id;
 
     @Column(name = "breed_name")
     private String breedName;

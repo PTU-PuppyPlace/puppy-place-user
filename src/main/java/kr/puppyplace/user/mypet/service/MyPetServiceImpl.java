@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MyPetServiceImpl implements MyPetService{
+public class MyPetServiceImpl implements MyPetService {
+
     private final MyPetRepository myPetRepository;
 
     @Override

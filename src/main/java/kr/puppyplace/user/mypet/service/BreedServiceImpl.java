@@ -13,17 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 public class BreedServiceImpl implements BreedService {
-    private final BreedRepository breedRepository;
 
+    private final BreedRepository breedRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<BreedDto> findByBreedNameContaining(String breedKey) {
-        List<Breed> findBreeds = breedRepository.findByBreedNameContainingOrBreedEngNameContaining(breedKey , breedKey);
+        List<Breed> findBreeds = breedRepository.findByBreedNameContainingOrBreedEngNameContaining(
+                breedKey, breedKey);
         log.info("findBreeds : " + findBreeds);
 
         return findBreeds.stream().map(b -> BreedDto.builder()
-                        .Id(b.getId())
+                        .id(b.getId())
                         .breedName(b.getBreedName())
                         .breedEngName(b.getBreedEngName())
                         .build())

@@ -1,25 +1,21 @@
 package kr.puppyplace.user.mypet.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
-import kr.puppyplace.user.mypet.service.MyPetService;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 class PetControllerTest {
+
     private static final FieldDescriptor[] myPetCreateRequest = new FieldDescriptor[]{
             fieldWithPath("petId").description("반려동물 id (pk)"),
             fieldWithPath("petName").description("반려동물 이름"),
@@ -53,15 +50,13 @@ class PetControllerTest {
 
     private final String prefixUrl;
 
-    @Autowired
-    private MyPetService myPetService;
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @DisplayName("반려동물 등록")
-    void myPetCreate() throws Exception{
+    void myPetCreate() throws Exception {
         // given
         MyPetCreateRequest request = MyPetCreateRequest.builder()
                 .petName("테스트")
@@ -94,12 +89,12 @@ class PetControllerTest {
         ));
 
 
-
     }
+
     public PetControllerTest(
             @Value("${server.servlet.context-path}") String contextPath) {
         this.contextPath = contextPath;
-        this.prefixUrl = contextPath ;
+        this.prefixUrl = contextPath;
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 
