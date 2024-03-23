@@ -10,19 +10,18 @@ import lombok.Getter;
 @AllArgsConstructor//@Data
 public class BreedDto {
 
-    private Long Id;
+    private Long id;
 
     private String breedName;
 
     private String breedEngName;
 
-
-    public static BreedDto of(Breed Breed) {
+    public static BreedDto of(Breed breed) {
         return BreedDto.builder()
-                .Id(Breed.getId())
-                .breedName(Breed.getBreedName())
-                .breedEngName(Breed.getBreedEngName())
-                .build();
+            .id(breed.getId())
+            .breedName(breed.getBreedName())
+            .breedEngName(breed.getBreedEngName())
+            .build();
     }
 }
 

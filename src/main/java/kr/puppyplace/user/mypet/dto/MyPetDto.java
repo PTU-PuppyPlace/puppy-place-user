@@ -8,25 +8,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 public class MyPetDto {
-
-//    private Long petId;
-//
-//    private String petName;
-//
-//    public static MyPetDto of(MyPetDto pet) {
-//        return MyPetDto.builder()
-//                .petId(pet.getPetId())
-//                .petName(pet.getPetName())
-//                .build();
-//    }
 
     @Builder
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MyPetCreateRequest {
+
         private Long petId;
         private String petName;
         private String petRegNumber; // 등록 번호
@@ -41,6 +30,7 @@ public class MyPetDto {
     @Builder
     @Getter
     public static class MyPetCreateResponse {
+
         private Long petId;
         private String petName;
         private String petRegNumber; // 등록 번호
@@ -53,16 +43,16 @@ public class MyPetDto {
 
         public static MyPetCreateResponse from(Pet pet) {
             return MyPetCreateResponse.builder()
-                    .petId(pet.getPetId())
-                    .petName(pet.getPetName())
-                    .petRegNumber(pet.getPetRegNumber())
-                    .petBirth(pet.getPetBirth())
-                    .petBreed(pet.getPetBreed())
-                    .petGender(pet.getPetGender())
-                    .petNeutralization(pet.getPetNeutralization())
-                    .petWeight(pet.getPetWeight())
-                    .petTemperament(pet.getPetTemperament())
-                    .build();
+                .petId(pet.getPetId())
+                .petName(pet.getPetName())
+                .petRegNumber(pet.getPetRegNumber())
+                .petBirth(pet.getPetBirth())
+                .petBreed(pet.getPetBreed())
+                .petGender(pet.getPetGender())
+                .petNeutralization(pet.getPetNeutralization())
+                .petWeight(pet.getPetWeight())
+                .petTemperament(pet.getPetTemperament())
+                .build();
         }
     }
 }

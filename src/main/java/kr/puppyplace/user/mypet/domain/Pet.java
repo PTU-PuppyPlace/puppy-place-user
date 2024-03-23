@@ -8,7 +8,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
@@ -71,16 +70,18 @@ public class Pet {
     @Column(name = "pet_temperament")
     private String petTemperament;
 
-    public static Pet createPet(String petName, String petRegNumber, String petBirth, String petBreed, PetGender petGender, PetNeutralization petNeutralization, int petWeight, String petTemperament) {
+    public static Pet createPet(String petName, String petRegNumber, String petBirth,
+        String petBreed, PetGender petGender, PetNeutralization petNeutralization, int petWeight,
+        String petTemperament) {
         return Pet.builder()
-                .petName(petName)
-                .petRegNumber(petRegNumber)
-                .petBirth(petBirth)
-                .petBreed(petBreed)
-                .petGender(petGender)
-                .petNeutralization(petNeutralization)
-                .petWeight(petWeight)
-                .petTemperament(petTemperament)
-                .build();
+            .petName(petName)
+            .petRegNumber(petRegNumber)
+            .petBirth(petBirth)
+            .petBreed(petBreed)
+            .petGender(petGender)
+            .petNeutralization(petNeutralization)
+            .petWeight(petWeight)
+            .petTemperament(petTemperament)
+            .build();
     }
 }
