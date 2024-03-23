@@ -1,5 +1,6 @@
 package kr.puppyplace.user.mypet.controller;
 
+
 import java.util.List;
 import kr.puppyplace.user.mypet.dto.BreedDto;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
@@ -20,21 +21,24 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PetController {
 
-    private final BreedService breedService;
-    private final MyPetService myPetService;
+    private final BreedService BreedService;
+    private final MyPetService MyPetService;
+
 
     @GetMapping(value = "/breeds/search")
-    public ResponseEntity<List<BreedDto>> getSearchedBreed(
-        @RequestParam(value = "breedKey") String breedKey) {
+    public ResponseEntity<List<BreedDto>> getSearchedBreed(@RequestParam( value = "breedKey") String breedKey) {
         log.info("breedKey : " + breedKey);
-        return ResponseEntity.ok().body(breedService.findByBreedNameContaining(breedKey));
+        return ResponseEntity
+                .ok()
+                .body(BreedService.findByBreedNameContaining(breedKey));
     }
 
     @PostMapping(value = "/mypet")
-    public ResponseEntity<MyPetCreateResponse> myPetCreate(
-        @RequestBody MyPetCreateRequest request) {
+    public ResponseEntity<MyPetCreateResponse> myPetCreate(@RequestBody MyPetCreateRequest request) {
         log.info("request : " + request);
 
-        return ResponseEntity.ok().body(myPetService.myPetCreate(request));
+        return ResponseEntity
+                .ok()
+                .body(MyPetService.myPetCreate(request));
     }
 }
