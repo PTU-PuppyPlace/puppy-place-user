@@ -1,17 +1,16 @@
 package kr.puppyplace.user.mypet.service;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
 import kr.puppyplace.user.mypet.domain.Pet;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
 import kr.puppyplace.user.mypet.repository.MyPetRepository;
-import org.hamcrest.Matchers;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,6 +18,7 @@ import static org.hamcrest.Matchers.*;
 
 @Transactional
 @SpringBootTest
+@ActiveProfiles("test")
 class MyPetServiceTest {
 
     @Autowired

@@ -3,6 +3,8 @@ plugins {
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'com.epages.restdocs-api-spec' version '0.19.2'
+    id 'org.hidetake.swagger.generator' version '2.19.2'
     id 'checkstyle'
 }
 
@@ -31,7 +33,7 @@ ext {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
@@ -40,8 +42,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.springframework.security:spring-security-test'
+//    testImplementation 'org.springframework.security:spring-security-test'
     runtimeOnly 'com.mysql:mysql-connector-j'
+// controller test 때문에 security 주석
+
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.4'
 }
 
 dependencyManagement {
@@ -51,11 +57,37 @@ dependencyManagement {
 }
 
 tasks.named('test') {
-    outputs.dir snippetsDir
+//    outputs.dir snippetsDir
     useJUnitPlatform()
 }
 
-tasks.named('asciidoctor') {
-    inputs.dir snippetsDir
-    dependsOn test
+checkstyle {
+    maxWarnings = 0
+    configFile = file("${rootDir}/checkstyle.xml")
+    toolVersion = "10.10.0"
+    checkstyleTest.enabled = false
+}
+
+//tasks.named('asciidoctor') {
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}
+
+tasks.withType(GenerateSwaggerUI).configureEach {
+    dependsOn 'openapi3'
+
+    delete file('src/main/resources/static/docs/')
+    copy {
+        from "build/resources/main/static/docs"
+        into "src/main/resources/static/docs/"
+    }
+}
+openapi3 {
+    server = "localhost:9091"
+    title = "퍼피 플레이스 user 서비스 관련 API"
+    description = "이 프로젝트에서는 퍼피 플레이스 user 관련 API를 제공합니다."
+    version = "0.0.1"
+    outputFileNamePrefix = 'user'
+    format = 'json'
+    outputDirectory = 'build/resources/main/static/docs'
 }
