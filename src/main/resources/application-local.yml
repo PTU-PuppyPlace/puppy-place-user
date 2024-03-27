@@ -39,4 +39,4 @@ logging:
 puppy-place:
   jwt:
     secret: 7136a4fdd60ca85e042569253523960915bf5f3136eba25fa5d190604da4cf47
-    access-token-validity-in-seconds: 86400000 # 1000ms * 60초 * 60분 * 24시간 = 1일
+    access-token-validity-in-seconds: 86400000
