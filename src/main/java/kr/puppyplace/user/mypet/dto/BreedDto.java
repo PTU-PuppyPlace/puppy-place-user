@@ -1,6 +1,5 @@
 package kr.puppyplace.user.mypet.dto;
 
-import kr.puppyplace.user.mypet.domain.Breed;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,12 +15,5 @@ public class BreedDto {
 
     private String breedEngName;
 
-    public static BreedDto of(Breed breed) {
-        return BreedDto.builder()
-                .id(breed.getId())
-                .breedName(breed.getBreedName())
-                .breedEngName(breed.getBreedEngName())
-                .build();
-    }
 }
 

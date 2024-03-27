@@ -30,12 +30,6 @@ public class Breed {
     @Column(name = "breed_eng_name")
     private String breedEngName;
 
-    public static Breed createBreed(String breedName, String breedEngName) {
-        return Breed.builder()
-                .breedName(breedName)
-                .breedEngName(breedEngName)
-                .build();
-    }
 }
 
 
