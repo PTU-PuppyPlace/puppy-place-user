@@ -21,7 +21,6 @@ public class BreedServiceImpl implements BreedService {
     public List<BreedDto> findByBreedNameContaining(String breedKey) {
         List<Breed> findBreeds = breedRepository.findByBreedNameContainingOrBreedEngNameContaining(
                 breedKey, breedKey);
-        log.info("findBreeds : " + findBreeds);
 
         return findBreeds.stream().map(b -> BreedDto.builder()
                         .id(b.getId())

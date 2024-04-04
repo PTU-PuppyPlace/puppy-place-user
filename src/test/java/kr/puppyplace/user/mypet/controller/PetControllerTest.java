@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.time.LocalDate;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
@@ -33,8 +34,11 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureRestDocs
 class PetControllerTest {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final String contextPath;
+    private final String prefixUrl;
     private static final FieldDescriptor[] myPetCreateRequest = new FieldDescriptor[]{
-            fieldWithPath("petId").description("반려동물 id (pk)"),
+            fieldWithPath("id").description("반려동물 id (pk)"),
             fieldWithPath("petName").description("반려동물 이름"),
             fieldWithPath("petBreed").description("반려동물 종류"),
             fieldWithPath("petGender").description("반려동물 성별"),
@@ -45,14 +49,15 @@ class PetControllerTest {
             fieldWithPath("petRegNumber").description("반려동물 등록번호")
     };
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String contextPath;
-
-    private final String prefixUrl;
-
-
     @Autowired
     private MockMvc mockMvc;
+
+    public PetControllerTest(
+            @Value("${server.servlet.context-path}") String contextPath) {
+        this.contextPath = contextPath;
+        this.prefixUrl = contextPath;
+        this.objectMapper.registerModule(new JavaTimeModule());
+    }
 
     @Test
     @DisplayName("반려동물 등록")
@@ -61,8 +66,8 @@ class PetControllerTest {
         MyPetCreateRequest request = MyPetCreateRequest.builder()
                 .petName("테스트")
                 .petBreed("test")
-                .petGender(PetGender.valueOf("MALE"))
-                .petBirth("20210101")
+                .petGender(PetGender.MALE)
+                .petBirth(LocalDate.of(2024, 4, 1))
                 .petWeight(10)
                 .petTemperament("활발")
                 .petNeutralization(PetNeutralization.valueOf("YES"))
@@ -79,7 +84,7 @@ class PetControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.petId").isNotEmpty())
+                .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.petName").value(request.getPetName()))
                 .andExpect(jsonPath("$.petBreed").value(request.getPetBreed()));
 
@@ -89,13 +94,6 @@ class PetControllerTest {
         ));
 
 
-    }
-
-    public PetControllerTest(
-            @Value("${server.servlet.context-path}") String contextPath) {
-        this.contextPath = contextPath;
-        this.prefixUrl = contextPath;
-        this.objectMapper.registerModule(new JavaTimeModule());
     }
 
 }

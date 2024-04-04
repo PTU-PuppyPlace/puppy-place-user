@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-@AllArgsConstructor//@Data
+@AllArgsConstructor
 public class BreedDto {
 
     private Long id;

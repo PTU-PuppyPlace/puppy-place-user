@@ -21,7 +21,7 @@ public class MyPetServiceImpl implements MyPetService {
     public MyPetCreateResponse myPetCreate(MyPetCreateRequest request) {
         Pet pet = myPetRepository.save(Pet.builder()
                 .petName(request.getPetName())
-                .petRegNumber(request.getPetRegNumber())
+                .petRegisterNumber(request.getPetRegNumber())
                 .petBirth(request.getPetBirth())
                 .petBreed(request.getPetBreed())
                 .petGender(request.getPetGender())
@@ -29,7 +29,7 @@ public class MyPetServiceImpl implements MyPetService {
                 .petWeight(request.getPetWeight())
                 .petTemperament(request.getPetTemperament())
                 .build());
-        return MyPetCreateResponse.from(pet);
+        return MyPetCreateResponse.fromEntity(pet);
     }
 
 }

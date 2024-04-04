@@ -1,5 +1,6 @@
 package kr.puppyplace.user.mypet.dto;
 
+import java.time.LocalDate;
 import kr.puppyplace.user.mypet.domain.Pet;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
@@ -16,14 +17,14 @@ public class MyPetDto {
     @NoArgsConstructor
     public static class MyPetCreateRequest {
 
-        private Long petId;
+        private Long id;
         private String petName;
         private String petRegNumber; // 등록 번호
-        private String petBirth; // 출생년도
+        private LocalDate petBirth; // 출생년도
         private String petBreed; // 품종
         private PetGender petGender; // 성별
         private PetNeutralization petNeutralization; // 중성화 여부
-        private int petWeight; // 몸무게
+        private Integer petWeight; // 몸무게
         private String petTemperament; // 성격
     }
 
@@ -31,21 +32,21 @@ public class MyPetDto {
     @Getter
     public static class MyPetCreateResponse {
 
-        private Long petId;
+        private Long id;
         private String petName;
         private String petRegNumber; // 등록 번호
-        private String petBirth; // 출생년도
+        private LocalDate petBirth; // 출생년도
         private String petBreed; // 품종
         private PetGender petGender; // 성별
         private PetNeutralization petNeutralization; // 중성화 여부
-        private int petWeight; // 몸무게
+        private Integer petWeight; // 몸무게
         private String petTemperament; // 성격
 
-        public static MyPetCreateResponse from(Pet pet) {
+        public static MyPetCreateResponse fromEntity(Pet pet) {
             return MyPetCreateResponse.builder()
-                    .petId(pet.getPetId())
+                    .id(pet.getId())
                     .petName(pet.getPetName())
-                    .petRegNumber(pet.getPetRegNumber())
+                    .petRegNumber(pet.getPetRegisterNumber())
                     .petBirth(pet.getPetBirth())
                     .petBreed(pet.getPetBreed())
                     .petGender(pet.getPetGender())

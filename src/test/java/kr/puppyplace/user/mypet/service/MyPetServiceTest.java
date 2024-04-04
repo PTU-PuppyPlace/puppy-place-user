@@ -1,15 +1,15 @@
 package kr.puppyplace.user.mypet.service;
 
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.util.List;
-import kr.puppyplace.user.mypet.domain.Pet;
 import kr.puppyplace.user.mypet.domain.enums.PetGender;
 import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
 import kr.puppyplace.user.mypet.dto.BreedDto;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
+import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateResponse;
 import kr.puppyplace.user.mypet.repository.MyPetRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,17 +28,17 @@ class MyPetServiceTest {
     @Autowired
     MyPetRepository myPetRepository;
     @Autowired
-    BreedServiceImpl BreedService;
+    BreedServiceImpl breedService;
 
     @Test
-    @DisplayName("반려동물 정보를 입력하여 등록할 수 있어야한다.")
-    public void 반려동물_등록() {
+    @DisplayName("반려동물 정보를 등록할 수 있어야 한다.")
+    public void 반려동물_정보를_등록할_수_있어야_한다() {
         //given
         MyPetCreateRequest testPet = MyPetCreateRequest.builder()
                 .petName("테스트")
                 .petBreed("test")
-                .petGender(PetGender.valueOf("FEMALE"))
-                .petBirth("20210101")
+                .petGender(PetGender.FEMALE)
+                .petBirth(LocalDate.of(2024, 4, 1))
                 .petWeight(10)
                 .petTemperament("활발")
                 .petNeutralization(PetNeutralization.valueOf("YES"))
@@ -46,31 +46,28 @@ class MyPetServiceTest {
                 .build();
 
         //when
-        Pet savePet = myPetRepository.save(
-                Pet.createPet(testPet.getPetName(), testPet.getPetRegNumber(),
-                        testPet.getPetBirth(), testPet.getPetBreed(), testPet.getPetGender(),
-                        testPet.getPetNeutralization(), testPet.getPetWeight(),
-                        testPet.getPetTemperament()));
-        Long servicePetId = myPetService.myPetCreate(testPet).getPetId();
+        MyPetCreateResponse responsePet = myPetService.myPetCreate(testPet);
 
         //then
-        assertThat(savePet.getPetId(), samePropertyValuesAs(servicePetId));
+        assertThat(responsePet.getId()).isNotNull();
+        assertThat(responsePet.getPetName()).isEqualTo(testPet.getPetName());
+        assertThat(responsePet.getPetBreed()).isEqualTo(testPet.getPetBreed());
 
     }
 
     @Test
-    @DisplayName("견종 검색을 할 수 있어야한다.")
-    void 견종검색() {
+    @DisplayName("견종 검색을 할 수 있어야 한다.")
+    void 견종_검색을_할_수_있어야_한다() {
         //given
         String breedKey = "콜리";
 
         //when
-        List<BreedDto> byBreedNameContaining = BreedService.findByBreedNameContaining(breedKey);
+        List<BreedDto> byBreedNameContaining = breedService.findByBreedNameContaining(breedKey);
 
         //then
         assertThat(byBreedNameContaining.stream().allMatch
                 (b -> b.getBreedName().contains(breedKey) || b.getBreedEngName().contains(breedKey)
-                ), samePropertyValuesAs(true));
+                )).isTrue();
 
     }
 
@@ -81,10 +78,10 @@ class MyPetServiceTest {
         String breedKey = "없는키";
 
         //when
-        List<BreedDto> byBreedNameContaining = BreedService.findByBreedNameContaining(breedKey);
+        List<BreedDto> byBreedNameContaining = breedService.findByBreedNameContaining(breedKey);
 
         //then
-        assertThat(byBreedNameContaining.size(), samePropertyValuesAs(0));
+        assertThat(byBreedNameContaining.size()).isEqualTo(0);
     }
 
 }
