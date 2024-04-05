@@ -1,4 +1,4 @@
-package kr.puppyplace.user.mypet.domain.enums;
+package kr.puppyplace.user.mypet.enums;
 
 public enum PetGender {
     MALE, // 수컷

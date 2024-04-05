@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.LocalDate;
-import kr.puppyplace.user.mypet.domain.enums.PetGender;
-import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
 import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateRequest;
+import kr.puppyplace.user.mypet.enums.PetGender;
+import kr.puppyplace.user.mypet.enums.PetNeutralization;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +39,14 @@ class PetControllerTest {
     private final String prefixUrl;
     private static final FieldDescriptor[] myPetCreateRequest = new FieldDescriptor[]{
             fieldWithPath("id").description("반려동물 id (pk)"),
-            fieldWithPath("petName").description("반려동물 이름"),
-            fieldWithPath("petBreed").description("반려동물 종류"),
-            fieldWithPath("petGender").description("반려동물 성별"),
-            fieldWithPath("petBirth").description("반려동물 생년월일"),
-            fieldWithPath("petWeight").description("반려동물 몸무게"),
-            fieldWithPath("petTemperament").description("반려동물 성격"),
-            fieldWithPath("petNeutralization").description("반려동물 중성화 여부"),
-            fieldWithPath("petRegNumber").description("반려동물 등록번호")
+            fieldWithPath("name").description("반려동물 이름"),
+            fieldWithPath("breed").description("반려동물 종류"),
+            fieldWithPath("gender").description("반려동물 성별"),
+            fieldWithPath("birth").description("반려동물 생년월일"),
+            fieldWithPath("weight").description("반려동물 몸무게"),
+            fieldWithPath("temperament").description("반려동물 성격"),
+            fieldWithPath("neutralization").description("반려동물 중성화 여부"),
+            fieldWithPath("regNumber").description("반려동물 등록번호")
     };
 
     @Autowired
@@ -64,14 +64,14 @@ class PetControllerTest {
     void myPetCreate() throws Exception {
         // given
         MyPetCreateRequest request = MyPetCreateRequest.builder()
-                .petName("테스트")
-                .petBreed("test")
-                .petGender(PetGender.MALE)
-                .petBirth(LocalDate.of(2024, 4, 1))
-                .petWeight(10)
-                .petTemperament("활발")
-                .petNeutralization(PetNeutralization.valueOf("YES"))
-                .petRegNumber("1234567890")
+                .name("테스트")
+                .breed("test")
+                .gender(PetGender.MALE)
+                .birth(LocalDate.of(2024, 4, 1))
+                .weight(10)
+                .temperament("활발")
+                .neutralization(PetNeutralization.valueOf("YES"))
+                .regNumber("1234567890")
                 .build();
 
         // when
@@ -85,8 +85,8 @@ class PetControllerTest {
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.petName").value(request.getPetName()))
-                .andExpect(jsonPath("$.petBreed").value(request.getPetBreed()));
+                .andExpect(jsonPath("$.name").value(request.getName()))
+                .andExpect(jsonPath("$.breed").value(request.getBreed()));
 
         // docs
         resultActions.andDo(document("mypet 등록 성공",

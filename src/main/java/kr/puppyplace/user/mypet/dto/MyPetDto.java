@@ -2,8 +2,8 @@ package kr.puppyplace.user.mypet.dto;
 
 import java.time.LocalDate;
 import kr.puppyplace.user.mypet.domain.Pet;
-import kr.puppyplace.user.mypet.domain.enums.PetGender;
-import kr.puppyplace.user.mypet.domain.enums.PetNeutralization;
+import kr.puppyplace.user.mypet.enums.PetGender;
+import kr.puppyplace.user.mypet.enums.PetNeutralization;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,14 +18,27 @@ public class MyPetDto {
     public static class MyPetCreateRequest {
 
         private Long id;
-        private String petName;
-        private String petRegNumber; // 등록 번호
-        private LocalDate petBirth; // 출생년도
-        private String petBreed; // 품종
-        private PetGender petGender; // 성별
-        private PetNeutralization petNeutralization; // 중성화 여부
-        private Integer petWeight; // 몸무게
-        private String petTemperament; // 성격
+        private String name;
+        private String regNumber; // 등록 번호
+        private LocalDate birth; // 출생년도
+        private String breed; // 품종
+        private PetGender gender; // 성별
+        private PetNeutralization neutralization; // 중성화 여부
+        private Integer weight; // 몸무게
+        private String temperament; // 성격
+
+        public Pet toEntity() {
+            return Pet.builder()
+                    .name(this.name)
+                    .registerNumber(this.regNumber)
+                    .birth(this.birth)
+                    .breed(this.breed)
+                    .gender(this.gender)
+                    .neutralization(this.neutralization)
+                    .weight(this.weight)
+                    .temperament(this.temperament)
+                    .build();
+        }
     }
 
     @Builder
@@ -33,26 +46,26 @@ public class MyPetDto {
     public static class MyPetCreateResponse {
 
         private Long id;
-        private String petName;
-        private String petRegNumber; // 등록 번호
-        private LocalDate petBirth; // 출생년도
-        private String petBreed; // 품종
-        private PetGender petGender; // 성별
-        private PetNeutralization petNeutralization; // 중성화 여부
-        private Integer petWeight; // 몸무게
-        private String petTemperament; // 성격
+        private String name;
+        private String regNumber; // 등록 번호
+        private LocalDate birth; // 출생년도
+        private String breed; // 품종
+        private PetGender gender; // 성별
+        private PetNeutralization neutralization; // 중성화 여부
+        private Integer weight; // 몸무게
+        private String temperament; // 성격
 
         public static MyPetCreateResponse fromEntity(Pet pet) {
             return MyPetCreateResponse.builder()
                     .id(pet.getId())
-                    .petName(pet.getPetName())
-                    .petRegNumber(pet.getPetRegisterNumber())
-                    .petBirth(pet.getPetBirth())
-                    .petBreed(pet.getPetBreed())
-                    .petGender(pet.getPetGender())
-                    .petNeutralization(pet.getPetNeutralization())
-                    .petWeight(pet.getPetWeight())
-                    .petTemperament(pet.getPetTemperament())
+                    .name(pet.getName())
+                    .regNumber(pet.getRegisterNumber())
+                    .birth(pet.getBirth())
+                    .breed(pet.getBreed())
+                    .gender(pet.getGender())
+                    .neutralization(pet.getNeutralization())
+                    .weight(pet.getWeight())
+                    .temperament(pet.getTemperament())
                     .build();
         }
     }

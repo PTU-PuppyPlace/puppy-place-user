@@ -1,4 +1,4 @@
-package kr.puppyplace.user.mypet.domain.enums;
+package kr.puppyplace.user.mypet.enums;
 
 public enum PetNeutralization {
     YES, // 중성화 O

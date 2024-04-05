@@ -11,9 +11,9 @@ public class BreedDto {
 
     private Long id;
 
-    private String breedName;
+    private String name;
 
-    private String breedEngName;
+    private String engName;
 
 }
 

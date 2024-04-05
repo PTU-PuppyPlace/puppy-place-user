@@ -19,13 +19,13 @@ public class BreedServiceImpl implements BreedService {
     @Override
     @Transactional(readOnly = true)
     public List<BreedDto> findByBreedNameContaining(String breedKey) {
-        List<Breed> findBreeds = breedRepository.findByBreedNameContainingOrBreedEngNameContaining(
+        List<Breed> findBreeds = breedRepository.findByNameContainingOrEngNameContaining(
                 breedKey, breedKey);
 
         return findBreeds.stream().map(b -> BreedDto.builder()
                         .id(b.getId())
-                        .breedName(b.getBreedName())
-                        .breedEngName(b.getBreedEngName())
+                        .name(b.getName())
+                        .engName(b.getEngName())
                         .build())
                 .toList();
 

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BreedRepository extends JpaRepository<Breed, Long> {
 
-    List<Breed> findByBreedNameContainingOrBreedEngNameContaining(String breedName,
+    List<Breed> findByNameContainingOrEngNameContaining(String breedName,
             String breedNameEng);
 }
