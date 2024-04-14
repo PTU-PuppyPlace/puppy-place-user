@@ -26,11 +26,11 @@ public class Breed {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "BREED_NAME")
-    private String breedName;
+    @Column(name = "NAME")
+    private String name;
 
-    @Column(name = "BREED_ENG_NAME")
-    private String breedEngName;
+    @Column(name = "ENG_NAME")
+    private String engName;
 
 }
 
