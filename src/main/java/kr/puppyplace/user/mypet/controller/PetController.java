@@ -18,8 +18,6 @@ public class PetController {
     @PostMapping(value = "/mypet")
     public ResponseEntity<MyPetCreateResponse> myPetCreate(
             @RequestBody MyPetCreateRequest request) {
-        return ResponseEntity
-                .ok()
-                .body(myPetService.myPetCreate(request));
+        return ResponseEntity.ok().body(myPetService.create(request));
     }
 }

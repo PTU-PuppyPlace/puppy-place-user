@@ -42,11 +42,11 @@ class MyPetServiceTest {
                 .weight(10)
                 .temperament("활발")
                 .neutralization(PetNeutralization.valueOf("YES"))
-                .regNumber("1234567890")
+                .registerNumber("1234567890")
                 .build();
 
         //when
-        MyPetCreateResponse responsePet = myPetService.myPetCreate(testPet);
+        MyPetCreateResponse responsePet = myPetService.create(testPet);
 
         //then
         assertThat(responsePet.getId()).isNotNull();

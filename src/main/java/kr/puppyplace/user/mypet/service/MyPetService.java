@@ -6,7 +6,6 @@ import kr.puppyplace.user.mypet.dto.MyPetDto.MyPetCreateResponse;
 
 public interface MyPetService {
 
-    @Transactional
-    MyPetCreateResponse myPetCreate(MyPetCreateRequest request);
+    MyPetCreateResponse create(MyPetCreateRequest request);
 
 }

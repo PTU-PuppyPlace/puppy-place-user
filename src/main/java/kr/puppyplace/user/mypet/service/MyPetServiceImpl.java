@@ -18,18 +18,10 @@ public class MyPetServiceImpl implements MyPetService {
 
     @Override
     @Transactional
-    public MyPetCreateResponse myPetCreate(MyPetCreateRequest request) {
-        Pet pet = myPetRepository.save(Pet.builder()
-                .petName(request.getPetName())
-                .petRegisterNumber(request.getPetRegNumber())
-                .petBirth(request.getPetBirth())
-                .petBreed(request.getPetBreed())
-                .petGender(request.getPetGender())
-                .petNeutralization(request.getPetNeutralization())
-                .petWeight(request.getPetWeight())
-                .petTemperament(request.getPetTemperament())
-                .build());
-        return MyPetCreateResponse.fromEntity(pet);
+    public MyPetCreateResponse create(MyPetCreateRequest request) {
+        return MyPetCreateResponse.fromEntity(
+                myPetRepository.save(request.toEntity())
+        );
     }
 
 }
