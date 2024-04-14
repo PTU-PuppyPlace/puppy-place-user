@@ -19,7 +19,7 @@ public class MyPetDto {
 
         private Long id;
         private String name;
-        private String regNumber; // 등록 번호
+        private String registerNumber; // 등록 번호
         private LocalDate birth; // 출생년도
         private String breed; // 품종
         private PetGender gender; // 성별
@@ -30,7 +30,7 @@ public class MyPetDto {
         public Pet toEntity() {
             return Pet.builder()
                     .name(this.name)
-                    .registerNumber(this.regNumber)
+                    .registerNumber(this.registerNumber)
                     .birth(this.birth)
                     .breed(this.breed)
                     .gender(this.gender)
@@ -47,7 +47,7 @@ public class MyPetDto {
 
         private Long id;
         private String name;
-        private String regNumber; // 등록 번호
+        private String registerNumber; // 등록 번호
         private LocalDate birth; // 출생년도
         private String breed; // 품종
         private PetGender gender; // 성별
@@ -59,7 +59,7 @@ public class MyPetDto {
             return MyPetCreateResponse.builder()
                     .id(pet.getId())
                     .name(pet.getName())
-                    .regNumber(pet.getRegisterNumber())
+                    .registerNumber(pet.getRegisterNumber())
                     .birth(pet.getBirth())
                     .breed(pet.getBreed())
                     .gender(pet.getGender())
