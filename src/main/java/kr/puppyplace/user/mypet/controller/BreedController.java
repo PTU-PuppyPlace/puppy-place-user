@@ -18,9 +18,7 @@ public class BreedController {
     @GetMapping(value = "/breeds/search")
     public ResponseEntity<List<BreedDto>> getSearchedBreed(
             @RequestParam(value = "breedKey") String breedKey) {
-        return ResponseEntity
-                .ok()
-                .body(breedService.findByBreedNameContaining(breedKey));
+        return ResponseEntity.ok().body(breedService.findByBreedNameContaining(breedKey));
     }
 
 }
