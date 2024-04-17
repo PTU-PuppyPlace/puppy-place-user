@@ -39,7 +39,6 @@ import org.springframework.transaction.annotation.Transactional;
 class PetControllerTest {
 
     private static final FieldDescriptor[] myPetCreateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("반려동물 id (pk)"),
             fieldWithPath("name").description("반려동물 이름"),
             fieldWithPath("breed").description("반려동물 종류"),
             fieldWithPath("gender").description("반려동물 성별"),
