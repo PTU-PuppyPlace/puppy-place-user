@@ -32,7 +32,7 @@ class MyPetServiceTest {
 
     @Test
     @DisplayName("반려동물 정보를 등록할 수 있어야 한다.")
-    public void 반려동물_정보를_등록할_수_있어야_한다() {
+    void 반려동물_정보를_등록할_수_있어야_한다() {
         //given
         MyPetCreateRequest testPet = MyPetCreateRequest.builder()
                 .name("테스트")

@@ -2,8 +2,12 @@ package kr.puppyplace.user.mypet.controller;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,10 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureRestDocs
 class PetControllerTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String contextPath;
-    private final String prefixUrl;
-    private static final FieldDescriptor[] myPetCreateRequest = new FieldDescriptor[]{
+    private static final FieldDescriptor[] myPetCreateRequestFields = new FieldDescriptor[]{
             fieldWithPath("id").description("반려동물 id (pk)"),
             fieldWithPath("name").description("반려동물 이름"),
             fieldWithPath("breed").description("반려동물 종류"),
@@ -46,8 +47,24 @@ class PetControllerTest {
             fieldWithPath("weight").description("반려동물 몸무게"),
             fieldWithPath("temperament").description("반려동물 성격"),
             fieldWithPath("neutralization").description("반려동물 중성화 여부"),
-            fieldWithPath("regNumber").description("반려동물 등록번호")
+            fieldWithPath("registerNumber").description("반려동물 등록번호")
     };
+
+    private static final FieldDescriptor[] myPetCreateResponseFields = new FieldDescriptor[]{
+            fieldWithPath("id").description("반려동물 id (pk)"),
+            fieldWithPath("name").description("반려동물 이름"),
+            fieldWithPath("breed").description("반려동물 종류"),
+            fieldWithPath("gender").description("반려동물 성별"),
+            fieldWithPath("birth").description("반려동물 생년월일"),
+            fieldWithPath("weight").description("반려동물 몸무게"),
+            fieldWithPath("temperament").description("반려동물 성격"),
+            fieldWithPath("neutralization").description("반려동물 중성화 여부"),
+            fieldWithPath("registerNumber").description("반려동물 등록번호")
+    };
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final String contextPath;
+    private final String prefixUrl;
 
     @Autowired
     private MockMvc mockMvc;
@@ -60,8 +77,8 @@ class PetControllerTest {
     }
 
     @Test
-    @DisplayName("반려동물 등록")
-    void myPetCreate() throws Exception {
+    @DisplayName("반려동물을 등록 할 수 있어야 한다.")
+    void 반려동물을_등록_할_수_있어야_한다() throws Exception {
         // given
         MyPetCreateRequest request = MyPetCreateRequest.builder()
                 .name("테스트")
@@ -71,7 +88,7 @@ class PetControllerTest {
                 .weight(10)
                 .temperament("활발")
                 .neutralization(PetNeutralization.valueOf("YES"))
-                .regNumber("1234567890")
+                .registerNumber("1234567890")
                 .build();
 
         // when
@@ -89,11 +106,15 @@ class PetControllerTest {
                 .andExpect(jsonPath("$.breed").value(request.getBreed()));
 
         // docs
-        resultActions.andDo(document("mypet 등록 성공",
-                requestFields(myPetCreateRequest)
+        resultActions.andDo(document("내 반려동물 등록 성공",
+                "내 반려동물을 등록한다.",
+                "내 반려동물 등록",
+                false,
+                false,
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestFields(myPetCreateRequestFields),
+                responseFields(myPetCreateResponseFields)
         ));
-
-
     }
-
 }
